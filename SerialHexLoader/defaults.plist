@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>startAddress</key>
+	<string>0x0</string>
+	<key>checkForNonPrintChars</key>
+	<integer>1</integer>
+	<key>binaryIO</key>
+	<integer>0</integer>
+	<key>checkUTF8</key>
+	<integer>1</integer>
+	<key>portName</key>
+	<string></string>
+	<key>pageSize</key>
+	<integer>256</integer>
+	<key>baudRate</key>
+	<integer>19200</integer>
+	<key>appendLineEnding</key>
+	<integer>1</integer>
+	<key>eraseBeforeWrite</key>
+	<integer>0</integer>
+	<key>omitNullsWhenPossible</key>
+	<integer>0</integer>
+</dict>
+</plist>

@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA38A39822845C6C00EA44BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA38A39722845C6C00EA44BB /* AppDelegate.m */; };
+		DA38A39A22845C6D00EA44BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA38A39922845C6D00EA44BB /* Assets.xcassets */; };
+		DA38A39D22845C6D00EA44BB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA38A39B22845C6D00EA44BB /* MainMenu.xib */; };
+		DA38A3A022845C6E00EA44BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA38A39F22845C6E00EA44BB /* main.m */; };
+		DA38A3AA22845CDC00EA44BB /* SerialHexWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA38A3A822845CDC00EA44BB /* SerialHexWindowController.mm */; };
+		DA38A3AB22845CDC00EA44BB /* SerialHexWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA38A3A922845CDC00EA44BB /* SerialHexWindowController.xib */; };
+		DA5EC9352285B82D00E97198 /* HexNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC9342285B82D00E97198 /* HexNumberFormatter.m */; };
+		DA5EC9372285EAF600E97198 /* OpeningInstructions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DA5EC9362285EAF600E97198 /* OpeningInstructions.rtf */; };
+		DA5EC93B2285EFFA00E97198 /* SerialHexViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC9392285EFFA00E97198 /* SerialHexViewController.mm */; };
+		DA5EC93C2285EFFA00E97198 /* SerialHexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5EC93A2285EFFA00E97198 /* SerialHexViewController.xib */; };
+		DA5EC9472285F18B00E97198 /* SerialPortIOSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC93D2285F18600E97198 /* SerialPortIOSession.m */; };
+		DA5EC9482285F18B00E97198 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC93E2285F18700E97198 /* LogViewController.m */; };
+		DA5EC9492285F18B00E97198 /* SendHexIOSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC9402285F18700E97198 /* SendHexIOSession.m */; };
+		DA5EC94A2285F18B00E97198 /* SerialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC9422285F18800E97198 /* SerialViewController.m */; };
+		DA5EC94B2285F18B00E97198 /* Tabs.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA5EC9432285F18900E97198 /* Tabs.mm */; };
+		DA5EC9E12285F24800E97198 /* ORSSerial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5EC9E02285F24800E97198 /* ORSSerial.framework */; };
+		DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5EC9E22285F67C00E97198 /* defaults.plist */; };
+		DA5EC9E52285FAB100E97198 /* ORSSerial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5EC9E02285F24800E97198 /* ORSSerial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA84E92522886ADD002EFA11 /* IntelHex.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA5EC9E42285FA9C00E97198 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA5EC9E52285FAB100E97198 /* ORSSerial.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DA38A39322845C6C00EA44BB /* SerialHexLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerialHexLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA38A39622845C6C00EA44BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DA38A39722845C6C00EA44BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DA38A39922845C6D00EA44BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA38A39C22845C6D00EA44BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		DA38A39E22845C6D00EA44BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA38A39F22845C6E00EA44BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA38A3A122845C6E00EA44BB /* SerialHexLoader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SerialHexLoader.entitlements; sourceTree = "<group>"; };
+		DA38A3A722845CDC00EA44BB /* SerialHexWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerialHexWindowController.h; sourceTree = "<group>"; };
+		DA38A3A822845CDC00EA44BB /* SerialHexWindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SerialHexWindowController.mm; sourceTree = "<group>"; };
+		DA38A3A922845CDC00EA44BB /* SerialHexWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SerialHexWindowController.xib; sourceTree = "<group>"; };
+		DA5EC9332285B82D00E97198 /* HexNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HexNumberFormatter.h; sourceTree = "<group>"; };
+		DA5EC9342285B82D00E97198 /* HexNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexNumberFormatter.m; sourceTree = "<group>"; };
+		DA5EC9362285EAF600E97198 /* OpeningInstructions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = OpeningInstructions.rtf; sourceTree = "<group>"; };
+		DA5EC9382285EFFA00E97198 /* SerialHexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerialHexViewController.h; sourceTree = "<group>"; };
+		DA5EC9392285EFFA00E97198 /* SerialHexViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SerialHexViewController.mm; sourceTree = "<group>"; };
+		DA5EC93A2285EFFA00E97198 /* SerialHexViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SerialHexViewController.xib; sourceTree = "<group>"; };
+		DA5EC93D2285F18600E97198 /* SerialPortIOSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SerialPortIOSession.m; sourceTree = "<group>"; };
+		DA5EC93E2285F18700E97198 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		DA5EC93F2285F18700E97198 /* SendHexIOSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendHexIOSession.h; sourceTree = "<group>"; };
+		DA5EC9402285F18700E97198 /* SendHexIOSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendHexIOSession.m; sourceTree = "<group>"; };
+		DA5EC9412285F18800E97198 /* SerialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialViewController.h; sourceTree = "<group>"; };
+		DA5EC9422285F18800E97198 /* SerialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SerialViewController.m; sourceTree = "<group>"; };
+		DA5EC9432285F18900E97198 /* Tabs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Tabs.mm; sourceTree = "<group>"; };
+		DA5EC9442285F18900E97198 /* SerialPortIOSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialPortIOSession.h; sourceTree = "<group>"; };
+		DA5EC9452285F18A00E97198 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		DA5EC9462285F18A00E97198 /* Tabs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tabs.h; sourceTree = "<group>"; };
+		DA5EC9E02285F24800E97198 /* ORSSerial.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ORSSerial.framework; path = SerialHexLoader/ORSSerial.framework; sourceTree = "<group>"; };
+		DA5EC9E22285F67C00E97198 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
+		DA84E92522886ADD002EFA11 /* IntelHex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IntelHex.cpp; sourceTree = "<group>"; };
+		DA84E92622886ADD002EFA11 /* IntelHex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelHex.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA38A39022845C6C00EA44BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5EC9E12285F24800E97198 /* ORSSerial.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA38A38A22845C6C00EA44BB = {
+			isa = PBXGroup;
+			children = (
+				DA38A39522845C6C00EA44BB /* SerialHexLoader */,
+				DA38A39422845C6C00EA44BB /* Products */,
+				DA5EC9DF2285F23300E97198 /* Frameworks and Libraries */,
+			);
+			sourceTree = "<group>";
+		};
+		DA38A39422845C6C00EA44BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA38A39322845C6C00EA44BB /* SerialHexLoader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA38A39522845C6C00EA44BB /* SerialHexLoader */ = {
+			isa = PBXGroup;
+			children = (
+				DA38A39622845C6C00EA44BB /* AppDelegate.h */,
+				DA38A39722845C6C00EA44BB /* AppDelegate.m */,
+				DA38A3A722845CDC00EA44BB /* SerialHexWindowController.h */,
+				DA38A3A822845CDC00EA44BB /* SerialHexWindowController.mm */,
+				DA38A3A922845CDC00EA44BB /* SerialHexWindowController.xib */,
+				DA38A39922845C6D00EA44BB /* Assets.xcassets */,
+				DA38A39B22845C6D00EA44BB /* MainMenu.xib */,
+				DA38A39E22845C6D00EA44BB /* Info.plist */,
+				DA38A39F22845C6E00EA44BB /* main.m */,
+				DA5EC9332285B82D00E97198 /* HexNumberFormatter.h */,
+				DA5EC9342285B82D00E97198 /* HexNumberFormatter.m */,
+				DA5EC9362285EAF600E97198 /* OpeningInstructions.rtf */,
+				DA38A3A122845C6E00EA44BB /* SerialHexLoader.entitlements */,
+				DA5EC9382285EFFA00E97198 /* SerialHexViewController.h */,
+				DA5EC9392285EFFA00E97198 /* SerialHexViewController.mm */,
+				DA5EC93A2285EFFA00E97198 /* SerialHexViewController.xib */,
+				DA5EC9452285F18A00E97198 /* LogViewController.h */,
+				DA5EC93E2285F18700E97198 /* LogViewController.m */,
+				DA5EC93F2285F18700E97198 /* SendHexIOSession.h */,
+				DA5EC9402285F18700E97198 /* SendHexIOSession.m */,
+				DA5EC9442285F18900E97198 /* SerialPortIOSession.h */,
+				DA5EC93D2285F18600E97198 /* SerialPortIOSession.m */,
+				DA5EC9412285F18800E97198 /* SerialViewController.h */,
+				DA5EC9422285F18800E97198 /* SerialViewController.m */,
+				DA5EC9462285F18A00E97198 /* Tabs.h */,
+				DA5EC9432285F18900E97198 /* Tabs.mm */,
+				DA84E92522886ADD002EFA11 /* IntelHex.cpp */,
+				DA84E92622886ADD002EFA11 /* IntelHex.h */,
+				DA5EC9E22285F67C00E97198 /* defaults.plist */,
+			);
+			path = SerialHexLoader;
+			sourceTree = "<group>";
+		};
+		DA5EC9DF2285F23300E97198 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				DA5EC9E02285F24800E97198 /* ORSSerial.framework */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA38A39222845C6C00EA44BB /* SerialHexLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA38A3A422845C6E00EA44BB /* Build configuration list for PBXNativeTarget "SerialHexLoader" */;
+			buildPhases = (
+				DA38A38F22845C6C00EA44BB /* Sources */,
+				DA38A39022845C6C00EA44BB /* Frameworks */,
+				DA38A39122845C6C00EA44BB /* Resources */,
+				DA5EC9E42285FA9C00E97198 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SerialHexLoader;
+			productName = SerialHexLoader;
+			productReference = DA38A39322845C6C00EA44BB /* SerialHexLoader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA38A38B22845C6C00EA44BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Jon Mackey";
+				TargetAttributes = {
+					DA38A39222845C6C00EA44BB = {
+						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = DA38A38E22845C6C00EA44BB /* Build configuration list for PBXProject "SerialHexLoader" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA38A38A22845C6C00EA44BB;
+			productRefGroup = DA38A39422845C6C00EA44BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA38A39222845C6C00EA44BB /* SerialHexLoader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA38A39122845C6C00EA44BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA38A39A22845C6D00EA44BB /* Assets.xcassets in Resources */,
+				DA38A39D22845C6D00EA44BB /* MainMenu.xib in Resources */,
+				DA5EC9372285EAF600E97198 /* OpeningInstructions.rtf in Resources */,
+				DA38A3AB22845CDC00EA44BB /* SerialHexWindowController.xib in Resources */,
+				DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */,
+				DA5EC93C2285EFFA00E97198 /* SerialHexViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA38A38F22845C6C00EA44BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5EC9492285F18B00E97198 /* SendHexIOSession.m in Sources */,
+				DA5EC94B2285F18B00E97198 /* Tabs.mm in Sources */,
+				DA5EC9482285F18B00E97198 /* LogViewController.m in Sources */,
+				DA38A3A022845C6E00EA44BB /* main.m in Sources */,
+				DA5EC9352285B82D00E97198 /* HexNumberFormatter.m in Sources */,
+				DA5EC94A2285F18B00E97198 /* SerialViewController.m in Sources */,
+				DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */,
+				DA38A39822845C6C00EA44BB /* AppDelegate.m in Sources */,
+				DA5EC93B2285EFFA00E97198 /* SerialHexViewController.mm in Sources */,
+				DA38A3AA22845CDC00EA44BB /* SerialHexWindowController.mm in Sources */,
+				DA5EC9472285F18B00E97198 /* SerialPortIOSession.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DA38A39B22845C6D00EA44BB /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA38A39C22845C6D00EA44BB /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA38A3A222845C6E00EA44BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DA38A3A322845C6E00EA44BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DA38A3A522845C6E00EA44BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SerialHexLoader/SerialHexLoader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SerialHexLoader",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SANDBOX_ENABLED=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SerialHexLoader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Mackey.SerialHexLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA38A3A622845C6E00EA44BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SerialHexLoader/SerialHexLoader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SerialHexLoader",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "SANDBOX_ENABLED=1";
+				INFOPLIST_FILE = SerialHexLoader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Mackey.SerialHexLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA38A38E22845C6C00EA44BB /* Build configuration list for PBXProject "SerialHexLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA38A3A222845C6E00EA44BB /* Debug */,
+				DA38A3A322845C6E00EA44BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA38A3A422845C6E00EA44BB /* Build configuration list for PBXNativeTarget "SerialHexLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA38A3A522845C6E00EA44BB /* Debug */,
+				DA38A3A622845C6E00EA44BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA38A38B22845C6C00EA44BB /* Project object */;
+}

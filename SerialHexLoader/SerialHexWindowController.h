@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 	IBOutlet NSView *serialView;
 }
 - (IBAction)exportBinary:(id)sender;
+- (IBAction)setTimeCommand:(id)sender;
 
 @property (nonatomic, strong) SerialHexViewController *serialHexViewController;
 @property (nonatomic, weak) NSSavePanel *savePanel; // valid only while panel is open

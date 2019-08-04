@@ -134,6 +134,16 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Command" tag="3" id="JOu-pa-riT">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Command" id="T0f-jc-Zm8">
+                        <items>
+                            <menuItem title="Set Time" tag="1" id="JO2-hM-SJV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Help" id="IoK-Fe-MAs">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="QoB-Ng-Ud6">

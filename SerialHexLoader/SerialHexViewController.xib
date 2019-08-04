@@ -140,7 +140,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="sendFatFs:" target="-1" id="1EM-mX-KKe"/>
+                        <action selector="sendHex:" target="-1" id="7NU-iQ-MvE"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DRI-Og-spB">
@@ -151,7 +151,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="stopFatFsSend:" target="-1" id="DOM-mq-Zef"/>
+                        <action selector="stopSendHex:" target="-1" id="2dI-n8-veS"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1XV-5O-kKe">

@@ -50,9 +50,11 @@ struct SMenuItemDesc
     SEL action;
 };
 
-SMenuItemDesc	menuItems[] = {
+SMenuItemDesc	menuItems[] =
+{
 	{1,10, @selector(open:)},
-	{1,15, @selector(exportBinary:)}
+	{1,15, @selector(exportBinary:)},
+	{3,1, @selector(setTimeCommand:)}
 };
 
 /******************************* windowDidLoad ********************************/
@@ -215,8 +217,8 @@ SMenuItemDesc	menuItems[] = {
 	}
 }
 
-/********************************* sendFatFs **********************************/
-- (IBAction)sendFatFs:(id)sender
+/********************************** sendHex ***********************************/
+- (IBAction)sendHex:(id)sender
 {
 	if ([self.serialHexViewController portIsOpen:YES])
 	{
@@ -244,10 +246,25 @@ SMenuItemDesc	menuItems[] = {
 	}
 }
 
-/******************************* stopFatFsSend ********************************/
-- (IBAction)stopFatFsSend:(id)sender
+/******************************** stopSendHex *********************************/
+- (IBAction)stopSendHex:(id)sender
 {
 	[self.serialHexViewController stop];
 }
 
+/******************************* setTimeCommand *******************************/
+/*
+*	Sends an > followed by the unix time in hex as an ascii string.
+*	Used to set the time on a device.
+*/
+- (IBAction)setTimeCommand:(id)sender
+{
+	NSTimeZone* timeZone = NSTimeZone.localTimeZone;
+	time_t result = time(nullptr) + timeZone.secondsFromGMT;
+	NSString* setTimeCommandStr = [NSString stringWithFormat:@">%lX", result];
+	if ([self.serialHexViewController sendString:setTimeCommandStr])
+	{
+		[self.serialHexViewController postInfoString:@"Time set command sent"];
+	}
+}
 @end

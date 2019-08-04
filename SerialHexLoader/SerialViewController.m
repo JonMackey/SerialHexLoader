@@ -202,21 +202,27 @@
 /********************************** send **************************************/
 - (IBAction)send:(id)sender
 {
-	if ([self portIsOpen:YES])
+	[self sendString:self.sendTextField.stringValue];
+}
+
+/******************************* sendString ***********************************/
+- (BOOL)sendString:(NSString*)inStringToSend
+{
+	BOOL success = [self portIsOpen:YES];
+	if (success)
 	{
 		NSData *dataToSend = NULL;
-		NSString *string = self.sendTextField.stringValue;
 		
 		if (self.sendAsHex)
 		{
-			dataToSend = [self toBinary:string];
+			dataToSend = [self toBinary:inStringToSend];
 		} else
 		{
 			if (self.lineEndingPopUpButton.selectedTag)
 			{
-				string = [string stringByAppendingString:[@[@"", @"\n", @"\r", @"r\n"] objectAtIndex:self.lineEndingPopUpButton.selectedTag]];
+				inStringToSend = [inStringToSend stringByAppendingString:[@[@"", @"\n", @"\r", @"r\n"] objectAtIndex:self.lineEndingPopUpButton.selectedTag]];
 			}
-			dataToSend = [string dataUsingEncoding:NSUTF8StringEncoding];
+			dataToSend = [inStringToSend dataUsingEncoding:NSUTF8StringEncoding];
 		}
 		if (dataToSend &&
 			dataToSend.length != 0)
@@ -224,6 +230,7 @@
 			[self.serialPort sendData:dataToSend];
 		}
 	}
+	return(success);
 }
 
 /******************************** openOrClosePort **********************************/

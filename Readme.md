@@ -2,7 +2,7 @@
 
 SerialHexLoader is an Objective-C OS X app that encodes any binary file to Intel HEX format then serially transfers the data to a target mcu running one of the copier programs supplied in this repository.  You can also simply export Intel HEX and transfer it using some other method.
 
-This app can also be used as a serial monitor similiar to Arduino's but with better UTF-8 handling and the ability to hex dump non printing characters.
+This app can also be used as a serial monitor similar to Arduino's but with better UTF-8 handling and the ability to hex dump non printing characters.
 
 A compiled version of the application is included in this repository.
 

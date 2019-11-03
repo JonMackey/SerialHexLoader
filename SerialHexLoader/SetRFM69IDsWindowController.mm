@@ -21,40 +21,44 @@
 	and copyright notices in any redistribution of this code
 *******************************************************************************/
 /*
-*	SerialHexViewController
+*	SetRFM69IDsWindowController
 *	
-*	Created by Jon Mackey on 5/10/19.
+*	Created by Jon Mackey on 10/26/19.
 *	Copyright © 2019 Jon Mackey. All rights reserved.
 */
 
 
-#import <Cocoa/Cocoa.h>
-#import "SerialViewController.h"
+#import "SetRFM69IDsWindowController.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface SetRFM69IDsWindowController ()
 
-@interface SerialHexViewController : SerialViewController
-{
-	IBOutlet NSTextField*	binaryLengthTextField;
-	IBOutlet NSTextField*	startAddressTextField;
-	IBOutlet NSTextField*	endAddressTextField;
-@public
-	IBOutlet NSPathControl*	binaryPathControl;
-}
-@property (nonatomic) double progressMin;
-@property (nonatomic) double progressMax;
-@property (nonatomic) double progressValue;
-@property (nonatomic) uint32_t startingAddress;
-@property (nonatomic) long binaryFileLength;
-@property (nonatomic) BOOL eraseBeforeWrite;
-
--(BOOL)binaryPathIsValid;
--(NSString*)binaryFileName;
-
--(BOOL)assignBinaryURL:(NSURL*)inBinaryURL;
-- (BOOL)doExport:(NSURL*)inDocURL;
-- (void)sendHexFile:(NSURL*)inDocURL;
-- (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog beginMsg:(NSString*)inBeginMsg;
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation SetRFM69IDsWindowController
+
+- (void)windowDidLoad
+{
+	[super windowDidLoad];
+}
+
+/*********************************** ok ***************************************/
+- (IBAction)ok:(id)sender
+{
+	/*
+	*	Force a validation of the current field being edited.
+	*	If validation passed THEN
+	*	it's OK to exit.
+	*/
+	if ([[self window] makeFirstResponder:nil])
+	{
+		[[NSApplication sharedApplication] stopModalWithCode:NSModalResponseOK];
+	}
+}
+
+/********************************* cancel *************************************/
+- (IBAction)cancel:(id)sender
+{
+	[[NSApplication sharedApplication] stopModalWithCode:NSModalResponseCancel];
+}
+
+@end

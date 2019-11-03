@@ -150,7 +150,6 @@ NSString *const kPageSizeKey = @"pageSize";
 /******************************* sendHexFile **********************************/
 - (void)sendHexFile:(NSURL*)inDocURL
 {
-	[self clear:self];
 	if ([self portIsOpen:YES])
 	{
 		NSError* error;
@@ -159,10 +158,20 @@ NSString *const kPageSizeKey = @"pageSize";
 		self.progressMax = dataToSend.length+_startingAddress;
 		self.progressValue = _startingAddress;
 
-		self.serialPortSession = [[SendHexIOSession alloc] initWithData:dataToSend port:self.serialPort];
-		((SendHexIOSession*)self.serialPortSession).eraseBeforeWrite = self.eraseBeforeWrite;
-		[self.serialPortSession begin];
+		SendHexIOSession* sendHexIOSession = [[SendHexIOSession alloc] initWithData:dataToSend port:self.serialPort];
+		sendHexIOSession.eraseBeforeWrite = self.eraseBeforeWrite;
+		[super beginSerialPortIOSession:sendHexIOSession clearLog:YES];
 	}
+}
+
+
+/************************** beginSerialPortIOSession **************************/
+- (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog
+{
+	self.progressMin = 0;
+	self.progressMax = 100;
+	self.progressValue = 0;
+	[super beginSerialPortIOSession:inSerialPortIOSession clearLog:inClearLog];
 }
 
 /****************************** updateProgress ********************************/

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA1DF00B23649008002B66AB /* SetRFM69IDsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */; };
+		DA1DF00C23649008002B66AB /* SetRFM69IDsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */; };
 		DA38A39822845C6C00EA44BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA38A39722845C6C00EA44BB /* AppDelegate.m */; };
 		DA38A39A22845C6D00EA44BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA38A39922845C6D00EA44BB /* Assets.xcassets */; };
 		DA38A39D22845C6D00EA44BB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA38A39B22845C6D00EA44BB /* MainMenu.xib */; };
@@ -26,6 +28,7 @@
 		DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5EC9E22285F67C00E97198 /* defaults.plist */; };
 		DA5EC9E52285FAB100E97198 /* ORSSerial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5EC9E02285F24800E97198 /* ORSSerial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA84E92522886ADD002EFA11 /* IntelHex.cpp */; };
+		DA949644236B645B0098FDD0 /* SDK500IOSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA949643236B645A0098FDD0 /* SDK500IOSession.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +45,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA1DF00823649008002B66AB /* SetRFM69IDsWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetRFM69IDsWindowController.h; sourceTree = "<group>"; };
+		DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SetRFM69IDsWindowController.mm; sourceTree = "<group>"; };
+		DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetRFM69IDsWindowController.xib; sourceTree = "<group>"; };
 		DA38A39322845C6C00EA44BB /* SerialHexLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerialHexLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA38A39622845C6C00EA44BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA38A39722845C6C00EA44BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -73,6 +79,9 @@
 		DA5EC9E22285F67C00E97198 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
 		DA84E92522886ADD002EFA11 /* IntelHex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IntelHex.cpp; sourceTree = "<group>"; };
 		DA84E92622886ADD002EFA11 /* IntelHex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelHex.h; sourceTree = "<group>"; };
+		DA949642236B645A0098FDD0 /* SDK500IOSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDK500IOSession.h; sourceTree = "<group>"; };
+		DA949643236B645A0098FDD0 /* SDK500IOSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDK500IOSession.mm; sourceTree = "<group>"; };
+		DA949645236B67C40098FDD0 /* stk500.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stk500.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +121,9 @@
 				DA38A3A722845CDC00EA44BB /* SerialHexWindowController.h */,
 				DA38A3A822845CDC00EA44BB /* SerialHexWindowController.mm */,
 				DA38A3A922845CDC00EA44BB /* SerialHexWindowController.xib */,
+				DA1DF00823649008002B66AB /* SetRFM69IDsWindowController.h */,
+				DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */,
+				DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */,
 				DA38A39922845C6D00EA44BB /* Assets.xcassets */,
 				DA38A39B22845C6D00EA44BB /* MainMenu.xib */,
 				DA38A39E22845C6D00EA44BB /* Info.plist */,
@@ -125,6 +137,9 @@
 				DA5EC93A2285EFFA00E97198 /* SerialHexViewController.xib */,
 				DA5EC9452285F18A00E97198 /* LogViewController.h */,
 				DA5EC93E2285F18700E97198 /* LogViewController.m */,
+				DA949642236B645A0098FDD0 /* SDK500IOSession.h */,
+				DA949643236B645A0098FDD0 /* SDK500IOSession.mm */,
+				DA949645236B67C40098FDD0 /* stk500.h */,
 				DA5EC93F2285F18700E97198 /* SendHexIOSession.h */,
 				DA5EC9402285F18700E97198 /* SendHexIOSession.m */,
 				DA5EC9442285F18900E97198 /* SerialPortIOSession.h */,
@@ -175,7 +190,7 @@
 		DA38A38B22845C6C00EA44BB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Jon Mackey";
 				TargetAttributes = {
 					DA38A39222845C6C00EA44BB = {
@@ -216,6 +231,7 @@
 				DA5EC9372285EAF600E97198 /* OpeningInstructions.rtf in Resources */,
 				DA38A3AB22845CDC00EA44BB /* SerialHexWindowController.xib in Resources */,
 				DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */,
+				DA1DF00C23649008002B66AB /* SetRFM69IDsWindowController.xib in Resources */,
 				DA5EC93C2285EFFA00E97198 /* SerialHexViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,11 +246,13 @@
 				DA5EC9492285F18B00E97198 /* SendHexIOSession.m in Sources */,
 				DA5EC94B2285F18B00E97198 /* Tabs.mm in Sources */,
 				DA5EC9482285F18B00E97198 /* LogViewController.m in Sources */,
+				DA949644236B645B0098FDD0 /* SDK500IOSession.mm in Sources */,
 				DA38A3A022845C6E00EA44BB /* main.m in Sources */,
 				DA5EC9352285B82D00E97198 /* HexNumberFormatter.m in Sources */,
 				DA5EC94A2285F18B00E97198 /* SerialViewController.m in Sources */,
 				DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */,
 				DA38A39822845C6C00EA44BB /* AppDelegate.m in Sources */,
+				DA1DF00B23649008002B66AB /* SetRFM69IDsWindowController.mm in Sources */,
 				DA5EC93B2285EFFA00E97198 /* SerialHexViewController.mm in Sources */,
 				DA38A3AA22845CDC00EA44BB /* SerialHexWindowController.mm in Sources */,
 				DA5EC9472285F18B00E97198 /* SerialPortIOSession.m in Sources */,
@@ -371,6 +389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SerialHexLoader/SerialHexLoader.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -396,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SerialHexLoader/SerialHexLoader.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (

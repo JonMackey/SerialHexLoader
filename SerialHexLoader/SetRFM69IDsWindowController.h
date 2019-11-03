@@ -21,40 +21,21 @@
 	and copyright notices in any redistribution of this code
 *******************************************************************************/
 /*
-*	SerialHexViewController
+*	SetRFM69IDsWindowController
 *	
-*	Created by Jon Mackey on 5/10/19.
+*	Created by Jon Mackey on 10/26/19.
 *	Copyright © 2019 Jon Mackey. All rights reserved.
 */
 
 
 #import <Cocoa/Cocoa.h>
-#import "SerialViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SerialHexViewController : SerialViewController
+@interface SetRFM69IDsWindowController : NSWindowController
 {
-	IBOutlet NSTextField*	binaryLengthTextField;
-	IBOutlet NSTextField*	startAddressTextField;
-	IBOutlet NSTextField*	endAddressTextField;
-@public
-	IBOutlet NSPathControl*	binaryPathControl;
 }
-@property (nonatomic) double progressMin;
-@property (nonatomic) double progressMax;
-@property (nonatomic) double progressValue;
-@property (nonatomic) uint32_t startingAddress;
-@property (nonatomic) long binaryFileLength;
-@property (nonatomic) BOOL eraseBeforeWrite;
 
--(BOOL)binaryPathIsValid;
--(NSString*)binaryFileName;
-
--(BOOL)assignBinaryURL:(NSURL*)inBinaryURL;
-- (BOOL)doExport:(NSURL*)inDocURL;
-- (void)sendHexFile:(NSURL*)inDocURL;
-- (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog beginMsg:(NSString*)inBeginMsg;
 @end
 
 NS_ASSUME_NONNULL_END

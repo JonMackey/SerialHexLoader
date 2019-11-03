@@ -55,7 +55,7 @@
 /***************************** didReceiveData *********************************/
 - (NSData*)didReceiveData:(NSData *)inData
 {
-	if (!self.done)
+	if (!self.isDone)
 	{
 		//fprintf(stderr, "%.*s\n", (int)inData.length, inData.bytes);
 		int	status = 0;
@@ -77,7 +77,6 @@
 						continue;
 					default:	// Some error occured or garbage char returned
 						status = -1;
-						[[NSSound soundNamed:@"Funk"] play];
 						self.done = YES;
 						break;
 				}
@@ -113,7 +112,6 @@
 			} else
 			{
 				//fprintf(stderr, "done - bytes >= bytesEnd\n");
-				[[NSSound soundNamed:@"Glass"] play];
 				self.done = YES;
 			}
 		}

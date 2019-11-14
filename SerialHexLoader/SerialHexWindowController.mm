@@ -59,7 +59,9 @@ SMenuItemDesc	menuItems[] =
 	{1,10, @selector(open:)},
 	{1,15, @selector(exportBinary:)},
 	{3,1, @selector(setTimeCommand:)},
-	{3,2, @selector(setNodeIDCommand:)}
+	{3,2, @selector(setNodeIDCommand:)},
+	{3,3, @selector(getWatchdogResetCountCommand:)},
+	{3,4, @selector(resetWatchdogResetCountCommand:)}
 };
 
 /******************************* windowDidLoad ********************************/
@@ -276,45 +278,103 @@ SMenuItemDesc	menuItems[] =
 /****************************** setNodeIDCommand ******************************/
 - (IBAction)setNodeIDCommand:(id)sender
 {
-	SetRFM69IDsWindowController* rfm69IDsWindowController = [[SetRFM69IDsWindowController alloc] initWithWindowNibName:@"SetRFM69IDsWindowController"];
-	
-	if ([[NSApplication sharedApplication] runModalForWindow:rfm69IDsWindowController.window] == NSModalResponseOK)
+	if ([self.serialHexViewController portIsOpen:YES])
 	{
-		NSInteger networkID = [[NSUserDefaults standardUserDefaults] integerForKey:kNetworkIDKey];
-		NSInteger nodeID = [[NSUserDefaults standardUserDefaults] integerForKey:kNodeIDKey];
+		SetRFM69IDsWindowController* rfm69IDsWindowController = [[SetRFM69IDsWindowController alloc] initWithWindowNibName:@"SetRFM69IDsWindowController"];
 		
-		struct SRFM69IDs
+		if ([[NSApplication sharedApplication] runModalForWindow:rfm69IDsWindowController.window] == NSModalResponseOK)
 		{
-			uint8_t	networkID;
-			uint8_t nodeID;
-		} rfm69IDs = {(uint8_t)networkID, (uint8_t)nodeID};
+			NSInteger networkID = [[NSUserDefaults standardUserDefaults] integerForKey:kNetworkIDKey];
+			NSInteger nodeID = [[NSUserDefaults standardUserDefaults] integerForKey:kNodeIDKey];
+			
+			struct SRFM69IDs
+			{
+				uint8_t	networkID;
+				uint8_t nodeID;
+			} rfm69IDs = {(uint8_t)networkID, (uint8_t)nodeID};
+			SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
+		#if 0
+			// A test for sending a large block of eeprom data
+			const char testData[] = "In the case of multiple BMP280 remotes, power should not be applied to the "
+			"remotes simultaneously to avoid packet collisions.  This requirement doesn't "
+			"apply to the log 3 button remote because the log remote uses the BMP280 "
+			"remote's period to determine when to send a packet.  The log remote sends "
+			"it's packet immediately after the BMP280's packet.";
+			NSData* rfm69IDsData = [NSData dataWithBytes:&testData length:sizeof(testData)-1];
+		#else
+			NSData* rfm69IDsData = [NSData dataWithBytes:&rfm69IDs length:2];
+			sdk500IOSession.timeout = 2;	// Timeout after n seconds if no response from ISP
+		#endif
+			SSDK500ParamBlk	devParamBlk = {0};
+			devParamBlk.eepromSize = Endian16_Swap(512);	// The only param used by the ISP when programming the eeprom is the eepromsize.
+			[sdk500IOSession sdkSetDevice:&devParamBlk];
+			[sdk500IOSession sdkLoadAddress:0];
+			[sdk500IOSession sdkEnterProgMode];
+			[sdk500IOSession sdkReadSignature];
+			[sdk500IOSession sdkProgPage:rfm69IDsData memType:'E' verify:YES];
+			[sdk500IOSession sdkLeaveProgMode];
+			sdk500IOSession.beginMsg = @"Set network and node ID command sent";
+			sdk500IOSession.completedMsg = [NSString stringWithFormat:@"Network ID set to %ld.  Node ID set to %ld (verified).", networkID, nodeID];
+			[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
+		}
+		[rfm69IDsWindowController.window close];
+	}
+}
+
+/************************ getWatchdogResetCountCommand ************************/
+- (IBAction)getWatchdogResetCountCommand:(id)sender
+{
+	if ([self.serialHexViewController portIsOpen:YES])
+	{
 		SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
-	#if 0
-		// A test for sending a large block of eeprom data
-		const char testData[] = "In the case of multiple BMP280 remotes, power should not be applied to the "
-		"remotes simultaneously to avoid packet collisions.  This requirement doesn't "
-		"apply to the log 3 button remote because the log remote uses the BMP280 "
-		"remote's period to determine when to send a packet.  The log remote sends "
-		"it's packet immediately after the BMP280's packet.";
-		NSData* rfm69IDsData = [NSData dataWithBytes:&testData length:sizeof(testData)-1];
-	#else
-		NSData* rfm69IDsData = [NSData dataWithBytes:&rfm69IDs length:2];
 		sdk500IOSession.timeout = 2;	// Timeout after n seconds if no response from ISP
-	#endif
 		SSDK500ParamBlk	devParamBlk = {0};
 		devParamBlk.eepromSize = Endian16_Swap(512);	// The only param used by the ISP when programming the eeprom is the eepromsize.
 		[sdk500IOSession sdkSetDevice:&devParamBlk];
-		[sdk500IOSession sdkLoadAddress:0];
+		[sdk500IOSession sdkLoadAddress:2];
 		[sdk500IOSession sdkEnterProgMode];
 		[sdk500IOSession sdkReadSignature];
-		[sdk500IOSession sdkProgPage:rfm69IDsData memType:'E' verify:YES];
+		[sdk500IOSession sdkReadPage:nil memType:'E' length:2];
 		[sdk500IOSession sdkLeaveProgMode];
-		sdk500IOSession.beginMsg = @"Set network and node ID command sent";
-		sdk500IOSession.completedMsg = [NSString stringWithFormat:@"Network ID set to %ld.  Node ID set to %ld (verified).", networkID, nodeID];
-		[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:YES];
+		sdk500IOSession.beginMsg = @"Get watchdog reset count command sent.";
+		sdk500IOSession.completionBlock = ^(SerialPortIOSession* ioSession)
+		{
+			SDK500IOSession*	sdk500Session = (SDK500IOSession*)ioSession;
+			if (sdk500Session.dataRead.length == 2)
+			{
+				[self.serialHexViewController postInfoString:
+					[NSString stringWithFormat:@"Watchdog reset count = %hd",
+						*(uint16_t*)sdk500Session.dataRead.bytes]];
+			} else
+			{
+				[self.serialHexViewController postErrorString:@"Unable to retrieve reset count."];
+			}
+		};
+		[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
 	}
-	[rfm69IDsWindowController.window close];
 }
 
+/*********************** resetWatchdogResetCountCommand ***********************/
+- (IBAction)resetWatchdogResetCountCommand:(id)sender
+{
+	if ([self.serialHexViewController portIsOpen:YES])
+	{
+		SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
+		uint16_t	zeroData = 0;
+		NSData* resetData = [NSData dataWithBytes:&zeroData length:2];
+		sdk500IOSession.timeout = 2;	// Timeout after n seconds if no response from ISP
+		SSDK500ParamBlk	devParamBlk = {0};
+		devParamBlk.eepromSize = Endian16_Swap(512);	// The only param used by the ISP when programming the eeprom is the eepromsize.
+		[sdk500IOSession sdkSetDevice:&devParamBlk];
+		[sdk500IOSession sdkLoadAddress:2];
+		[sdk500IOSession sdkEnterProgMode];
+		[sdk500IOSession sdkReadSignature];
+		[sdk500IOSession sdkProgPage:resetData memType:'E' verify:YES];
+		[sdk500IOSession sdkLeaveProgMode];
+		sdk500IOSession.beginMsg = @"Reset watchdog reset count command sent.";
+		sdk500IOSession.completedMsg = @"Watchdog reset count reset to zero.";
+		[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
+	}
+}
 
 @end

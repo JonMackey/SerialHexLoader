@@ -231,16 +231,18 @@ if you don't want to (or can't) write or read the entire eeprom in one shot.
 								bytesToProcess -= bytesRead;
 								_bytesReceived += bytesRead;
 							}
-							if (_dataIndex == _bytesRequested &&
-								_compareToProg)
+							if (_dataIndex == _bytesRequested)
 							{
-								if ([_dataRead isEqualToData:self.data])
+								if (_compareToProg)
 								{
-									[self.delegate logInfoString:@"Data verification successful"];
-								} else
-								{
-									[self.delegate logErrorString:@"Data verification failed"];
-									self.stoppedDueToError = YES;
+									if ([_dataRead isEqualToData:self.data])
+									{
+										[self.delegate logInfoString:@"Data verification successful"];
+									} else
+									{
+										[self.delegate logErrorString:@"Data verification failed"];
+										self.stoppedDueToError = YES;
+									}
 								}
 							}
 						}

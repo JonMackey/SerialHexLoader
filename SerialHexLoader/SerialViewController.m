@@ -276,11 +276,18 @@
 		[[NSSound soundNamed:(self.serialPortSession.stoppedDueToError ||
 								self.serialPortSession.stoppedDueToTimeout) ?
 									@"Funk" : @"Glass"] play];
-		if (self.serialPortSession.completedMsg &&
-			self.serialPortSession.stoppedDueToError == NO &&
+		
+		if (self.serialPortSession.stoppedDueToError == NO &&
 			self.serialPortSession.stoppedDueToTimeout == NO)
 		{
-			[self postInfoString: self.serialPortSession.completedMsg];
+			if (self.serialPortSession.completedMsg)
+			{
+				[self postInfoString: self.serialPortSession.completedMsg];
+			}
+			if (self.serialPortSession.completionBlock)
+			{
+				self.serialPortSession.completionBlock(self.serialPortSession);
+			}
 		}
 		self.serialPortSession = nil;
 	}
@@ -479,7 +486,11 @@
 {
 	NSArray *connectedPorts = [notification userInfo][ORSConnectedSerialPortsKey];
 	//NSLog(@"Ports were connected: %@", connectedPorts);
-	[self postInfoString: [NSString stringWithFormat:@"Ports were connected: %@", connectedPorts]];
+	for (NSUInteger portIndex = connectedPorts.count; portIndex; )
+	{
+		--portIndex;
+		[self postInfoString: [NSString stringWithFormat:@"%@ connected", [connectedPorts objectAtIndex:portIndex]]];
+	}
 	[self postUserNotificationForConnectedPorts:connectedPorts];
 }
 
@@ -488,7 +499,11 @@
 {
 	NSArray *disconnectedPorts = [notification userInfo][ORSDisconnectedSerialPortsKey];
 	//NSLog(@"Ports were disconnected: %@", disconnectedPorts);
-	[self postInfoString: [NSString stringWithFormat:@"Ports were disconnected: %@", disconnectedPorts]];
+	for (NSUInteger portIndex = disconnectedPorts.count; portIndex; )
+	{
+		--portIndex;
+		[self postInfoString: [NSString stringWithFormat:@"%@ disconnected", [disconnectedPorts objectAtIndex:portIndex]]];
+	}
 	[self postUserNotificationForDisconnectedPorts:disconnectedPorts];
 	
 }

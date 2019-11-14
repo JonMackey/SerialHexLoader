@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSUInteger	timeout;
 @property (nullable, weak) id<LogDelegate> delegate;
 
+@property (nonatomic, copy, nullable) void (^completionBlock)(SerialPortIOSession* ioSession);
+@property NSInteger completionTag;
 
 - (instancetype)initWithData:(NSData * _Nullable)inData port:(ORSSerialPort *)inPort;
 - (void)begin;

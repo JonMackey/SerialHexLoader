@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)setTimeCommand:(id)sender;
 - (IBAction)setNodeIDCommand:(id)sender;
 - (IBAction)getWatchdogResetCountCommand:(id)sender;
+- (IBAction)resetWatchdogResetCountCommand:(id)sender;
 
 @property (nonatomic, strong) SerialHexViewController *serialHexViewController;
 @property (nonatomic, weak) NSSavePanel *savePanel; // valid only while panel is open

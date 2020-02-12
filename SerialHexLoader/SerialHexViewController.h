@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)assignBinaryURL:(NSURL*)inBinaryURL;
 - (BOOL)doExport:(NSURL*)inDocURL;
 - (void)sendHexFile:(NSURL*)inDocURL;
-- (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog beginMsg:(NSString*)inBeginMsg;
+- (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog;
 @end
 
 NS_ASSUME_NONNULL_END

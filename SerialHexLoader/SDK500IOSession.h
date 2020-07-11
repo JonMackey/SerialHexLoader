@@ -43,6 +43,7 @@
 @property (nonatomic) uint8_t		memType;		// for read and prog page
 @property (nonatomic) uint8_t		command;
 @property (nonatomic) uint8_t		expectedResponse;
+@property (nonatomic) uint8_t		calibrationByte;
 @property (nonatomic) uint32_t		signature;
 @property (nonatomic, strong) NSMutableData*	commands;
 @property (nonatomic) NSUInteger	commandIndex;
@@ -60,4 +61,5 @@
 - (void)sdkReadPage:(NSMutableData *)inData memType:(uint8_t)inMemType length:(NSUInteger)inLength;
 - (void)sdkLeaveProgMode;
 - (void)sdkReadSignature;
+- (void)sdkReadCalibration;
 @end

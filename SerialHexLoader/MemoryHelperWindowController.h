@@ -21,34 +21,38 @@
 	and copyright notices in any redistribution of this code
 *******************************************************************************/
 /*
-*	SerialHexWindowController
+*	MemoryHelperWindowController
 *	
-*	Created by Jon Mackey on 5/9/19.
-*	Copyright © 2019 Jon Mackey. All rights reserved.
+*	Created by Jon Mackey on 7/8/20.
+*	Copyright © 2020 Jon Mackey. All rights reserved.
 */
 
 
 #import <Cocoa/Cocoa.h>
-#import "SerialHexViewController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SerialHexWindowController : NSWindowController
+@interface MemoryHelperWindowController : NSWindowController
 {
-	IBOutlet NSView *serialView;
+	IBOutlet NSTextField*	lengthTextField;
+	IBOutlet NSTextField*	startAddressTextField;
+	IBOutlet NSTextField*	addressRangeTextField;
+	IBOutlet NSTextField*	valueTextField;
+	IBOutlet NSTextField*	valueLabel;
+	IBOutlet NSPopUpButton*	viewDataAsPopUp;
+	IBOutlet NSTextField*	viewDataAsLabel;
+	
 }
-- (IBAction)exportBinary:(id)sender;
-- (IBAction)setTimeCommand:(id)sender;
-- (IBAction)setNodeIDCommand:(id)sender;
-- (IBAction)getWatchdogResetCountCommand:(id)sender;
-- (IBAction)resetWatchdogResetCountCommand:(id)sender;
-- (IBAction)readCalibrationCommand:(id)sender;
-- (IBAction)readEEPROMRangeCommand:(id)sender;
-- (IBAction)writeEEPROMRangeCommand:(id)sender;
+- (IBAction)ok:(id)sender;
+- (IBAction)cancel:(id)sender;
 
-@property (nonatomic, strong) SerialHexViewController *serialHexViewController;
-@property (nonatomic, weak) NSSavePanel *savePanel; // valid only while panel is open
+@property (nonatomic) uint32_t startingAddress;
+@property (nonatomic) uint32_t endAddress;
+@property (nonatomic) uint32_t memLength;
+@property (nonatomic) BOOL isRead;
 
-- (void)doOpen:(NSURL*)inDocURL;
+- (void)showValueField;
+- (void)showViewDataAsField;
 
 @end
 

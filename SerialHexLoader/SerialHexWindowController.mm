@@ -30,6 +30,7 @@
 
 #import "SerialHexWindowController.h"
 #import "SetRFM69IDsWindowController.h"
+#import "MemoryHelperWindowController.h"
 #import "SDK500IOSession.h"
 
 
@@ -46,6 +47,10 @@ NSString *const kBinaryPathKey = @"binaryPath";
 #endif
 NSString *const kNetworkIDKey = @"networkID";
 NSString *const kNodeIDKey = @"nodeID";
+NSString *const kStartingMemAddressKey = @"startingMemAddress";
+NSString *const kMemLengthKey = @"memLength";
+NSString *const kMemValueKey = @"memValue";
+NSString *const kViewDataAs = @"viewDataAs";
 
 struct SMenuItemDesc
 {
@@ -61,7 +66,10 @@ SMenuItemDesc	menuItems[] =
 	{3,1, @selector(setTimeCommand:)},
 	{3,2, @selector(setNodeIDCommand:)},
 	{3,3, @selector(getWatchdogResetCountCommand:)},
-	{3,4, @selector(resetWatchdogResetCountCommand:)}
+	{3,4, @selector(resetWatchdogResetCountCommand:)},
+	{3,5, @selector(readCalibrationCommand:)},
+	{3,6, @selector(readEEPROMRangeCommand:)},
+	{3,7, @selector(writeEEPROMRangeCommand:)}
 };
 
 /******************************* windowDidLoad ********************************/
@@ -321,6 +329,102 @@ SMenuItemDesc	menuItems[] =
 	}
 }
 
+/************************** writeEEPROMRangeCommand ***************************/
+- (IBAction)writeEEPROMRangeCommand:(id)sender
+{
+	if ([self.serialHexViewController portIsOpen:YES])
+	{
+		MemoryHelperWindowController* memoryHelpersWindowController = [[MemoryHelperWindowController alloc] initWithWindowNibName:@"MemoryHelperWindowController"];
+		memoryHelpersWindowController.isRead = NO;
+		
+		if ([[NSApplication sharedApplication] runModalForWindow:memoryHelpersWindowController.window] == NSModalResponseOK)
+		{
+			NSInteger startingMemAddress = [[NSUserDefaults standardUserDefaults] integerForKey:kStartingMemAddressKey];
+			NSInteger memLength = [[NSUserDefaults standardUserDefaults] integerForKey:kMemLengthKey];
+			NSInteger memValue = [[NSUserDefaults standardUserDefaults] integerForKey:kMemValueKey];
+			if (memLength &&
+				memLength < 512)
+			{
+				SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
+
+				uint32_t	memLength32 = ((uint32_t)(memLength+3)/4);
+				uint32_t	*memBlock = new uint32_t[memLength32];
+				for (uint32_t i = 0; i < memLength32; i++)
+				{
+					memBlock[i] = (uint32_t)memValue;
+				}
+				NSData* memData = [NSData dataWithBytes:memBlock length:memLength];
+				delete [] memBlock;
+				
+				sdk500IOSession.timeout = 2;	// Timeout after n seconds if no response from ISP
+				SSDK500ParamBlk	devParamBlk = {0};
+				devParamBlk.eepromSize = Endian16_Swap(512);	// The only param used by the ISP when programming the eeprom is the eepromsize.
+				[sdk500IOSession sdkSetDevice:&devParamBlk];
+				[sdk500IOSession sdkLoadAddress:startingMemAddress];
+				[sdk500IOSession sdkEnterProgMode];
+				[sdk500IOSession sdkReadSignature];
+				[sdk500IOSession sdkProgPage:memData memType:'E' verify:YES];
+				[sdk500IOSession sdkLeaveProgMode];
+				sdk500IOSession.beginMsg = @"Write EEPROM command sent";
+				sdk500IOSession.completedMsg = [NSString stringWithFormat:@"0x%lX EEPROM memory bytes written starting at address 0x%lX set to 0x%lX. (verified).", memLength, startingMemAddress*2, memValue];
+				[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
+			} else
+			{
+				[self.serialHexViewController postErrorString:@"Memory length must be between 1 and 512 bytes."];
+			}
+		}
+		[memoryHelpersWindowController.window close];
+	}
+}
+
+/*************************** readEEPROMRangeCommand ***************************/
+- (IBAction)readEEPROMRangeCommand:(id)sender
+{
+	if ([self.serialHexViewController portIsOpen:YES])
+	{
+		MemoryHelperWindowController* memoryHelpersWindowController = [[MemoryHelperWindowController alloc] initWithWindowNibName:@"MemoryHelperWindowController"];
+		memoryHelpersWindowController.isRead = YES;
+		
+		if ([[NSApplication sharedApplication] runModalForWindow:memoryHelpersWindowController.window] == NSModalResponseOK)
+		{
+			NSInteger startingMemAddress = [[NSUserDefaults standardUserDefaults] integerForKey:kStartingMemAddressKey];
+			NSInteger memLength = [[NSUserDefaults standardUserDefaults] integerForKey:kMemLengthKey];
+			NSInteger viewDataAs = [[NSUserDefaults standardUserDefaults] integerForKey:kViewDataAs];
+			
+			if (memLength &&
+				memLength < 512)
+			{
+				SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
+				
+				sdk500IOSession.timeout = 2;	// Timeout after n seconds if no response from ISP
+				SSDK500ParamBlk	devParamBlk = {0};
+				devParamBlk.eepromSize = Endian16_Swap(512);	// The only param used by the ISP when programming the eeprom is the eepromsize.
+				[sdk500IOSession sdkSetDevice:&devParamBlk];
+				[sdk500IOSession sdkLoadAddress:startingMemAddress];
+				[sdk500IOSession sdkEnterProgMode];
+				[sdk500IOSession sdkReadSignature];
+				[sdk500IOSession sdkReadPage:nil memType:'E' length:memLength];
+				[sdk500IOSession sdkLeaveProgMode];
+				sdk500IOSession.beginMsg = @"Read EEPROM command sent";
+				sdk500IOSession.completedMsg = [NSString stringWithFormat:@"0x%lX EEPROM memory bytes read starting at 0x%lX.", memLength, startingMemAddress];
+				sdk500IOSession.completionBlock = ^(SerialPortIOSession* ioSession)
+				{
+					SDK500IOSession*	sdk500Session = (SDK500IOSession*)ioSession;
+					[self.serialHexViewController appendFormat:@"\nlength = %d\n", (int)sdk500Session.dataRead.length];
+//					[self.serialHexViewController appendHexDump:sdk500Session.dataRead.bytes length:sdk500Session.dataRead.length addPreamble:NO];
+					[self.serialHexViewController appendDataDump:sdk500Session.dataRead.bytes length:sdk500Session.dataRead.length startAddress:startingMemAddress*2 unit:(uint8_t)viewDataAs];
+					[self.serialHexViewController post];
+				};
+				[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
+			} else
+			{
+				[self.serialHexViewController postErrorString:@"Memory length must be between 1 and 512 bytes."];
+			}
+		}
+		[memoryHelpersWindowController.window close];
+	}
+}
+
 /************************ getWatchdogResetCountCommand ************************/
 - (IBAction)getWatchdogResetCountCommand:(id)sender
 {
@@ -373,6 +477,22 @@ SMenuItemDesc	menuItems[] =
 		[sdk500IOSession sdkLeaveProgMode];
 		sdk500IOSession.beginMsg = @"Reset watchdog reset count command sent.";
 		sdk500IOSession.completedMsg = @"Watchdog reset count reset to zero.";
+		[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
+	}
+}
+
+/************************** readCalibrationCommand ***************************/
+- (IBAction)readCalibrationCommand:(id)sender
+{
+	if ([self.serialHexViewController portIsOpen:YES])
+	{
+		SDK500IOSession* sdk500IOSession = [[SDK500IOSession alloc] init:self.serialHexViewController.serialPort];
+		[sdk500IOSession sdkEnterProgMode];
+		[sdk500IOSession sdkReadSignature];
+		[sdk500IOSession sdkReadCalibration];
+		[sdk500IOSession sdkLeaveProgMode];
+		sdk500IOSession.beginMsg = @"Read calibration (OSCCAL) command sent.";
+		sdk500IOSession.completedMsg = @"Done.";
 		[self.serialHexViewController beginSerialPortIOSession:sdk500IOSession clearLog:NO];
 	}
 }

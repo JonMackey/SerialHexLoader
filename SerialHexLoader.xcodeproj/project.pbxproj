@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0AFEC824B63D9F0078979B /* MemoryHelperWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0AFEC624B63D9F0078979B /* MemoryHelperWindowController.m */; };
+		DA0AFEC924B63D9F0078979B /* MemoryHelperWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0AFEC724B63D9F0078979B /* MemoryHelperWindowController.xib */; };
 		DA1DF00B23649008002B66AB /* SetRFM69IDsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */; };
 		DA1DF00C23649008002B66AB /* SetRFM69IDsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */; };
 		DA38A39822845C6C00EA44BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA38A39722845C6C00EA44BB /* AppDelegate.m */; };
@@ -45,6 +47,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA0AFEC524B63D9F0078979B /* MemoryHelperWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemoryHelperWindowController.h; sourceTree = "<group>"; };
+		DA0AFEC624B63D9F0078979B /* MemoryHelperWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemoryHelperWindowController.m; sourceTree = "<group>"; };
+		DA0AFEC724B63D9F0078979B /* MemoryHelperWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemoryHelperWindowController.xib; sourceTree = "<group>"; };
 		DA1DF00823649008002B66AB /* SetRFM69IDsWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetRFM69IDsWindowController.h; sourceTree = "<group>"; };
 		DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SetRFM69IDsWindowController.mm; sourceTree = "<group>"; };
 		DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetRFM69IDsWindowController.xib; sourceTree = "<group>"; };
@@ -124,6 +129,9 @@
 				DA1DF00823649008002B66AB /* SetRFM69IDsWindowController.h */,
 				DA1DF00923649008002B66AB /* SetRFM69IDsWindowController.mm */,
 				DA1DF00A23649008002B66AB /* SetRFM69IDsWindowController.xib */,
+				DA0AFEC524B63D9F0078979B /* MemoryHelperWindowController.h */,
+				DA0AFEC624B63D9F0078979B /* MemoryHelperWindowController.m */,
+				DA0AFEC724B63D9F0078979B /* MemoryHelperWindowController.xib */,
 				DA38A39922845C6D00EA44BB /* Assets.xcassets */,
 				DA38A39B22845C6D00EA44BB /* MainMenu.xib */,
 				DA38A39E22845C6D00EA44BB /* Info.plist */,
@@ -230,6 +238,7 @@
 				DA38A39D22845C6D00EA44BB /* MainMenu.xib in Resources */,
 				DA5EC9372285EAF600E97198 /* OpeningInstructions.rtf in Resources */,
 				DA38A3AB22845CDC00EA44BB /* SerialHexWindowController.xib in Resources */,
+				DA0AFEC924B63D9F0078979B /* MemoryHelperWindowController.xib in Resources */,
 				DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */,
 				DA1DF00C23649008002B66AB /* SetRFM69IDsWindowController.xib in Resources */,
 				DA5EC93C2285EFFA00E97198 /* SerialHexViewController.xib in Resources */,
@@ -247,6 +256,7 @@
 				DA5EC94B2285F18B00E97198 /* Tabs.mm in Sources */,
 				DA5EC9482285F18B00E97198 /* LogViewController.m in Sources */,
 				DA949644236B645B0098FDD0 /* SDK500IOSession.mm in Sources */,
+				DA0AFEC824B63D9F0078979B /* MemoryHelperWindowController.m in Sources */,
 				DA38A3A022845C6E00EA44BB /* main.m in Sources */,
 				DA5EC9352285B82D00E97198 /* HexNumberFormatter.m in Sources */,
 				DA5EC94A2285F18B00E97198 /* SerialViewController.m in Sources */,

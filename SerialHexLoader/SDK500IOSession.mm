@@ -154,6 +154,10 @@ if you don't want to (or can't) write or read the entire eeprom in one shot.
 				_signature = 0;
 				_bytesReceived = 0;
 				break;
+			case STK_READ_OSCCAL:
+				_calibrationByte = 0;
+				_bytesReceived = 0;
+				break;
 			default:
 				break;
 		}
@@ -264,6 +268,14 @@ if you don't want to (or can't) write or read the entire eeprom in one shot.
 						{
 							[self.delegate logInfoString:[NSString stringWithFormat:@"Device signature = 0x%X", _signature]];
 						}
+						break;
+					}
+					case STK_READ_OSCCAL: // Resp_STK_INSYNC, OSCCAL, Resp_STK_OK
+					{
+						_calibrationByte = *(receivedData++);
+						_bytesReceived++;
+						bytesToProcess--;
+						[self.delegate logInfoString:[NSString stringWithFormat:@"Calibration byte (OSCCAL) = 0x%hhX", _calibrationByte]];
 						break;
 					}
 				}
@@ -394,6 +406,12 @@ if you don't want to (or can't) write or read the entire eeprom in one shot.
 - (void)sdkReadSignature
 {
 	[self appendCommand:STK_READ_SIGN];
+}
+
+/***************************** sdkReadCalibration *****************************/
+- (void)sdkReadCalibration
+{
+	[self appendCommand:STK_READ_OSCCAL];
 }
 
 /*************************** setStoppedDueToTimeout ***************************/

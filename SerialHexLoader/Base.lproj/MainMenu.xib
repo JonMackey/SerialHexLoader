@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -27,7 +27,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="showPreferences:" target="-1" id="SUm-M8-sSX"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -135,29 +139,194 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Text" tag="4" id="1cR-0p-mRr" userLabel="Text">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Text" id="fym-iK-zMn">
+                        <items>
+                            <menuItem title="Encode Base64" tag="401" id="IfX-UM-H4b">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Decode Base64" tag="402" id="0nk-vh-Y64">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Command" tag="3" id="JOu-pa-riT">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Command" id="T0f-jc-Zm8">
                         <items>
-                            <menuItem title="Set Time" tag="1" id="JO2-hM-SJV">
+                            <menuItem title="AT" tag="3" id="U9a-0S-3bX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" id="uGJ-y5-gRD">
+                                    <items>
+                                        <menuItem title="Time" tag="100" id="pQ2-JW-RPe">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="xEy-Se-GF7">
+                                                <items>
+                                                    <menuItem title="Get" tag="10001" id="K5k-8F-LFo">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set" tag="10002" id="EIk-8o-ABN">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Get Connection" tag="3" id="maT-2S-iHE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Get Network Operators" tag="4" id="zrF-N0-gfY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Connect To Verizon" tag="5" id="lqg-YP-dDC">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Set Verbose Error Response" tag="6" id="H7k-2J-Mvl">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Get RSSI" tag="7" id="zuh-5I-9tF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Check Battery" tag="8" id="TAh-FK-G1F">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Get Device IMEI" tag="9" id="J8v-T4-xIt">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Get SIM ICCID" tag="10" id="Sb1-0y-Kte">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="DNS" tag="1000" id="ToD-Or-2ku">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="phu-51-9eG">
+                                                <items>
+                                                    <menuItem title="Get" tag="100001" id="HI4-VQ-9ED">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set to Google" tag="100002" id="DJ4-nq-uPW">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="SMS" tag="1001" id="fIg-pZ-9yz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="l0c-dd-uE2">
+                                                <items>
+                                                    <menuItem title="Get Mode" tag="100101" id="VyN-dF-ENs">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set Text Mode" tag="100102" id="68U-nu-0qT">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set PDU Mode" tag="100103" id="XpX-Wr-NlJ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Read All Messages" tag="100107" id="5K2-S5-gtn">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Read New Messages" tag="100108" id="CI0-69-Tjf">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Get SMSC" tag="100104" id="26V-fb-QP2">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set Verizon SMSC" tag="100105" id="Tn8-Rz-Pn8">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Set AT&amp;T SMSC" tag="100106" id="K4l-gy-3wV">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Network" tag="1002" id="H9K-5W-3ZW">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="daX-ey-bNM">
+                                                <items>
+                                                    <menuItem title="Deactivate" tag="100201" id="igQ-pq-DJF">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Activate vzwinternet" tag="100202" id="ufZ-Pr-ThN">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="HTTP" tag="1005" id="0fi-hJ-Bjp">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="a5B-RG-fiJ">
+                                                <items>
+                                                    <menuItem title="Initialize" tag="100501" id="wTR-jk-QCe">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Terminate" tag="100502" id="mVs-wp-eIK">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="GET" tag="100503" id="Z9t-XQ-gJO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="POST" tag="100504" id="Vwk-Wk-Jsz">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Read Response" tag="100505" id="cZk-GM-lqu">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Status" tag="100506" id="uIu-ax-lqM">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="SDK500" tag="2" id="yjm-cF-iMd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" id="8f4-Mq-3JG">
+                                    <items>
+                                        <menuItem title="Set NodeID..." tag="1" id="gxB-xM-9Ws">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Get WDRF Count" tag="2" id="KS5-X4-Tf1">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Reset WDRF Count" tag="3" id="4Rz-kN-Soj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Read Calibration (OSCCAL)" tag="4" id="Q1e-PS-XSD" userLabel="Read Calibration">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Read EEPROM Range..." tag="5" id="lVq-bZ-gTD">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Write EEPROM Range..." tag="6" id="1K4-qr-PpG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dYn-jX-44u"/>
+                            <menuItem title="Set Unix Time" tag="1" id="JO2-hM-SJV">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Set NodeID..." tag="2" id="gxB-xM-9Ws">
+                            <menuItem title="Send Selection" tag="96" id="C0V-kG-PdO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Get WDRF Count" tag="3" id="KS5-X4-Tf1">
+                            <menuItem title="Send &lt;ESC&gt;" tag="94" id="ysx-x3-qYc">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Reset WDRF Count" tag="4" id="4Rz-kN-Soj">
+                            <menuItem title="Send &lt;CTRL-Z&gt;" tag="95" id="bv6-w1-TEL">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Read Calibration (OSCCAL)" tag="5" id="Q1e-PS-XSD" userLabel="Read Calibration">
+                            <menuItem title="Wakeup" tag="97" id="rFL-oC-I2C">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Read EEPROM Range..." tag="6" id="lVq-bZ-gTD">
+                            <menuItem title="Sleep" tag="98" id="AFG-yk-OEP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="Write EEPROM Range..." tag="7" id="1K4-qr-PpG">
+                            <menuItem title="Reset" tag="99" id="NJd-Ch-OSK">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>

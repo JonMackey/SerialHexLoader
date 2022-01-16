@@ -40,6 +40,7 @@
 - (BOOL)sessionIsDone;
 - (void)beginSerialPortIOSession:(SerialPortIOSession*)inSerialPortIOSession clearLog:(BOOL)inClearLog;
 - (BOOL)sendString:(NSString*)inStringToSend;
+- (BOOL)sendData:(NSData*)inDataToSend;
 
 @property (unsafe_unretained) IBOutlet NSTextField *sendTextField;
 @property (unsafe_unretained) IBOutlet NSButton *openCloseButton;
@@ -49,9 +50,11 @@
 @property (nonatomic, strong) ORSSerialPortManager *serialPortManager;
 @property (nonatomic, strong) SerialPortIOSession *serialPortSession;
 @property (nonatomic, strong) ORSSerialPort *serialPort;
+@property (nonatomic) BOOL insertTimestamps;
 @property (nonatomic) BOOL sendAsHex;
 @property (nonatomic) BOOL checkForNonPrintableChars;
 @property (nonatomic) BOOL doUTF8Buffering;
 @property (nonatomic, strong) NSMutableData *utf8Buffer;
 @property (nonatomic, strong) NSTimer* sessionTimer;
+@property (nonatomic, strong) NSDate* logTimeAndDate;
 @end

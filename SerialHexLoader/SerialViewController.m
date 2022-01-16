@@ -57,6 +57,7 @@
 	[self unbind:@"doUTF8Buffering"];
 	[self unbind:@"checkForNonPrintableChars"];
 	[self unbind:@"sendAsHex"];
+	[self unbind:@"insertTimestamps"];
 }
 
 /****************************** viewDidLoad ***********************************/
@@ -67,7 +68,8 @@
 	[self bind:@"doUTF8Buffering" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"checkUTF8" options:NULL];
 	[self bind:@"checkForNonPrintableChars" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"checkForNonPrintChars" options:NULL];
 	[self bind:@"sendAsHex" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"binaryIO" options:NULL];
-	
+	[self bind:@"insertTimestamps" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"insertTimestamps" options:NULL];
+
 	self.serialPortManager = [ORSSerialPortManager sharedSerialPortManager];
 
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -233,6 +235,21 @@
 	return(success);
 }
 
+/******************************** inDataToSend ********************************/
+- (BOOL)sendData:(NSData*)inDataToSend
+{
+	BOOL success = [self portIsOpen:YES];
+	if (success)
+	{
+		if (inDataToSend &&
+			inDataToSend.length != 0)
+		{
+			[self.serialPort sendData:inDataToSend];
+		}
+	}
+	return(success);
+}
+
 /******************************** openOrClosePort **********************************/
 - (IBAction)openOrClosePort:(id)sender
 {
@@ -322,6 +339,22 @@
 	}
 	if (data.length)
 	{
+		if (self.insertTimestamps)
+		{
+			/*
+			*	If no text has been received for 3/4 second THEN
+			*	insert a timestamp.
+			*/
+			if (!self.logTimeAndDate ||
+				[self.logTimeAndDate timeIntervalSinceNow] < -0.75)
+			{
+				//fprintf(stderr, "%g\n", [self.logTimeAndDate timeIntervalSinceNow]);
+				NSColor*	savedCurrentColor = self.currentColor;
+				[[[[[[self setColor:self.slateBlueColor] appendString:@"["] appendDate] appendString:@"]"] setColor:savedCurrentColor] appendNewLine];
+			}
+			// Reset the pseudo timestamp timeout
+			self.logTimeAndDate = [NSDate date];
+		}
 		if (self.checkForNonPrintableChars &&
 			[self containsNonPrintableChars:data.bytes length:data.length])
 		{

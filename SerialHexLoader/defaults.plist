@@ -8,6 +8,8 @@
 	<integer>1</integer>
 	<key>startAddress</key>
 	<string>0x0</string>
+	<key>insertTimestamps</key>
+	<integer>0</integer>
 	<key>checkForNonPrintChars</key>
 	<integer>1</integer>
 	<key>binaryIO</key>

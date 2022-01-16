@@ -29,7 +29,10 @@
 		DA5EC9E12285F24800E97198 /* ORSSerial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5EC9E02285F24800E97198 /* ORSSerial.framework */; };
 		DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5EC9E22285F67C00E97198 /* defaults.plist */; };
 		DA5EC9E52285FAB100E97198 /* ORSSerial.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5EC9E02285F24800E97198 /* ORSSerial.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA5F6C0F26BC20C1001A526F /* Base64Str.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA5F6C0D26BC20C1001A526F /* Base64Str.cpp */; };
 		DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA84E92522886ADD002EFA11 /* IntelHex.cpp */; };
+		DA862AFD26C83C6900047903 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA862AFB26C83C6900047903 /* PreferencesWindowController.m */; };
+		DA862AFE26C83C6900047903 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA862AFC26C83C6900047903 /* PreferencesWindowController.xib */; };
 		DA949644236B645B0098FDD0 /* SDK500IOSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA949643236B645A0098FDD0 /* SDK500IOSession.mm */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +85,13 @@
 		DA5EC9462285F18A00E97198 /* Tabs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tabs.h; sourceTree = "<group>"; };
 		DA5EC9E02285F24800E97198 /* ORSSerial.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ORSSerial.framework; path = SerialHexLoader/ORSSerial.framework; sourceTree = "<group>"; };
 		DA5EC9E22285F67C00E97198 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
+		DA5F6C0D26BC20C1001A526F /* Base64Str.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Str.cpp; sourceTree = "<group>"; };
+		DA5F6C0E26BC20C1001A526F /* Base64Str.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Str.h; sourceTree = "<group>"; };
 		DA84E92522886ADD002EFA11 /* IntelHex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IntelHex.cpp; sourceTree = "<group>"; };
 		DA84E92622886ADD002EFA11 /* IntelHex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelHex.h; sourceTree = "<group>"; };
+		DA862AFA26C83C6900047903 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		DA862AFB26C83C6900047903 /* PreferencesWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		DA862AFC26C83C6900047903 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		DA949642236B645A0098FDD0 /* SDK500IOSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDK500IOSession.h; sourceTree = "<group>"; };
 		DA949643236B645A0098FDD0 /* SDK500IOSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDK500IOSession.mm; sourceTree = "<group>"; };
 		DA949645236B67C40098FDD0 /* stk500.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stk500.h; sourceTree = "<group>"; };
@@ -123,6 +131,9 @@
 			children = (
 				DA38A39622845C6C00EA44BB /* AppDelegate.h */,
 				DA38A39722845C6C00EA44BB /* AppDelegate.m */,
+				DA862AFA26C83C6900047903 /* PreferencesWindowController.h */,
+				DA862AFB26C83C6900047903 /* PreferencesWindowController.m */,
+				DA862AFC26C83C6900047903 /* PreferencesWindowController.xib */,
 				DA38A3A722845CDC00EA44BB /* SerialHexWindowController.h */,
 				DA38A3A822845CDC00EA44BB /* SerialHexWindowController.mm */,
 				DA38A3A922845CDC00EA44BB /* SerialHexWindowController.xib */,
@@ -158,6 +169,8 @@
 				DA5EC9432285F18900E97198 /* Tabs.mm */,
 				DA84E92522886ADD002EFA11 /* IntelHex.cpp */,
 				DA84E92622886ADD002EFA11 /* IntelHex.h */,
+				DA5F6C0D26BC20C1001A526F /* Base64Str.cpp */,
+				DA5F6C0E26BC20C1001A526F /* Base64Str.h */,
 				DA5EC9E22285F67C00E97198 /* defaults.plist */,
 			);
 			path = SerialHexLoader;
@@ -241,6 +254,7 @@
 				DA0AFEC924B63D9F0078979B /* MemoryHelperWindowController.xib in Resources */,
 				DA5EC9E32285F67D00E97198 /* defaults.plist in Resources */,
 				DA1DF00C23649008002B66AB /* SetRFM69IDsWindowController.xib in Resources */,
+				DA862AFE26C83C6900047903 /* PreferencesWindowController.xib in Resources */,
 				DA5EC93C2285EFFA00E97198 /* SerialHexViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +272,7 @@
 				DA949644236B645B0098FDD0 /* SDK500IOSession.mm in Sources */,
 				DA0AFEC824B63D9F0078979B /* MemoryHelperWindowController.m in Sources */,
 				DA38A3A022845C6E00EA44BB /* main.m in Sources */,
+				DA862AFD26C83C6900047903 /* PreferencesWindowController.m in Sources */,
 				DA5EC9352285B82D00E97198 /* HexNumberFormatter.m in Sources */,
 				DA5EC94A2285F18B00E97198 /* SerialViewController.m in Sources */,
 				DA84E92722886ADD002EFA11 /* IntelHex.cpp in Sources */,
@@ -265,6 +280,7 @@
 				DA1DF00B23649008002B66AB /* SetRFM69IDsWindowController.mm in Sources */,
 				DA5EC93B2285EFFA00E97198 /* SerialHexViewController.mm in Sources */,
 				DA38A3AA22845CDC00EA44BB /* SerialHexWindowController.mm in Sources */,
+				DA5F6C0F26BC20C1001A526F /* Base64Str.cpp in Sources */,
 				DA5EC9472285F18B00E97198 /* SerialPortIOSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +431,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = Mackey.SerialHexLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -438,6 +455,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = Mackey.SerialHexLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

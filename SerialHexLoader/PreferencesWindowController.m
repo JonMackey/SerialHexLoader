@@ -21,22 +21,24 @@
 	and copyright notices in any redistribution of this code
 *******************************************************************************/
 /*
-*	AppDelegate
+*	PreferencesWindowController
 *	
-*	Created by Jon Mackey on 5/9/19.
-*	Copyright © 2019 Jon Mackey. All rights reserved.
+*	Created by Jon Mackey on 8/14/21.
+*	Copyright © 2021 Jon Mackey. All rights reserved.
 */
 
 
-#import <Cocoa/Cocoa.h>
-#import "SerialHexWindowController.h"
 #import "PreferencesWindowController.h"
-@interface AppDelegate : NSObject <NSApplicationDelegate>
 
-- (IBAction)showPreferences:(id)sender;
-
-@property (nonatomic, strong) SerialHexWindowController* serialHexWindowController;
-@property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
+@interface PreferencesWindowController ()
 
 @end
 
+@implementation PreferencesWindowController
+
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+}
+
+@end

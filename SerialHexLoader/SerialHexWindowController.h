@@ -44,9 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)readCalibrationCommand:(id)sender;
 - (IBAction)readEEPROMRangeCommand:(id)sender;
 - (IBAction)writeEEPROMRangeCommand:(id)sender;
+- (IBAction)sendStaticStringByTag:(id)sender;
+- (IBAction)setATTimeCommand:(id)sender;
+- (IBAction)sendSelection:(id)sender;
+- (IBAction)encodeBase64:(id)sender;
+- (IBAction)decodeBase64:(id)sender;
+- (IBAction)sendEscapeChar:(id)sender;
+- (IBAction)sendCtrlZChar:(id)sender;
 
 @property (nonatomic, strong) SerialHexViewController *serialHexViewController;
 @property (nonatomic, weak) NSSavePanel *savePanel; // valid only while panel is open
+@property (nonatomic) BOOL smsModeIsText;
 
 - (void)doOpen:(NSURL*)inDocURL;
 

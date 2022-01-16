@@ -43,6 +43,9 @@
 	NSDictionary*	defaults = [NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"defaults" withExtension:@"plist"]];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 
+	self.preferencesWindowController = [PreferencesWindowController alloc];
+	[self.preferencesWindowController initWithWindowNibName:@"PreferencesWindowController"];
+
 	self.serialHexWindowController = [SerialHexWindowController alloc];
 	[[self.serialHexWindowController initWithWindowNibName:@"SerialHexWindowController"].window makeKeyAndOrderFront:nil];
 }
@@ -63,5 +66,10 @@
 
 }
 
+/****************************** showPreferences *******************************/
+- (IBAction)showPreferences:(id)sender
+{
+	[self.preferencesWindowController.window makeKeyAndOrderFront: sender];
+}
 
 @end

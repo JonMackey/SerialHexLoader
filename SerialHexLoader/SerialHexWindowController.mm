@@ -32,6 +32,7 @@
 #import "SetRFM69IDsWindowController.h"
 #import "MemoryHelperWindowController.h"
 #import "SDK500IOSession.h"
+#include "Base64Str.h"
 
 
 @interface SerialHexWindowController ()
@@ -59,17 +60,76 @@ struct SMenuItemDesc
     SEL action;
 };
 
+// When the action is set to nil the item is a submenu
+// When only the mainMenuTag is zero the item is a submenu item of the previous submenu entry.
+// When mainMenuTag and subMenuTag are zero, it means pop the submenu to the previous submenu
 SMenuItemDesc	menuItems[] =
 {
 	{1,10, @selector(open:)},
 	{1,15, @selector(exportBinary:)},
 	{3,1, @selector(setTimeCommand:)},
-	{3,2, @selector(setNodeIDCommand:)},
-	{3,3, @selector(getWatchdogResetCountCommand:)},
-	{3,4, @selector(resetWatchdogResetCountCommand:)},
-	{3,5, @selector(readCalibrationCommand:)},
-	{3,6, @selector(readEEPROMRangeCommand:)},
-	{3,7, @selector(writeEEPROMRangeCommand:)}
+	{3,2, nil},	// SDK500 commands submenu
+		{0,1, @selector(setNodeIDCommand:)},
+		{0,2, @selector(getWatchdogResetCountCommand:)},
+		{0,3, @selector(resetWatchdogResetCountCommand:)},
+		{0,4, @selector(readCalibrationCommand:)},
+		{0,5, @selector(readEEPROMRangeCommand:)},
+		{0,6, @selector(writeEEPROMRangeCommand:)},
+	/*
+	*	I thought about dynamically building the AT commands menu but I
+	*	couldn't come up with a property list format that's easy to use.
+	*	Instead, the AT commands mostly use the same selector and then look up
+	*	the command based on the menu item tag value.  For this reason the
+	*	menu item tags should be unique.
+	*/
+	{3,3,nil},	// AT commands submenu
+		{0,100, nil},	// Time submenu
+			{0,10001, @selector(sendStaticStringByTag:)},
+			{0,10002, @selector(setATTimeCommand:)},
+			{0,0, nil},
+		{0,3, @selector(sendStaticStringByTag:)},
+		{0,4, @selector(sendStaticStringByTag:)},
+		{0,5, @selector(sendStaticStringByTag:)},
+		{0,6, @selector(sendStaticStringByTag:)},
+		{0,7, @selector(sendStaticStringByTag:)},
+		{0,8, @selector(sendStaticStringByTag:)},
+		{0,9, @selector(sendStaticStringByTag:)},
+		{0,10, @selector(sendStaticStringByTag:)},
+		{0,1000, nil},	// DNS suubmenu
+			{0,100001, @selector(sendStaticStringByTag:)},
+			{0,100002, @selector(sendStaticStringByTag:)},
+			{0,0, nil},
+		{0,1001, nil},	// SMS suubmenu
+			{0,100101, @selector(sendStaticStringByTag:)},
+			{0,100102, @selector(sendStaticStringByTag:)},
+			{0,100103, @selector(sendStaticStringByTag:)},
+			{0,100104, @selector(sendStaticStringByTag:)},
+			{0,100105, @selector(sendStaticStringByTag:)},
+			{0,100106, @selector(sendStaticStringByTag:)},
+			{0,100107, @selector(sendStaticStringByTag:)},
+			{0,100108, @selector(sendStaticStringByTag:)},
+			{0,0, nil},
+		{0,1002, nil}, // Network submenu
+			{0,100201, @selector(sendStaticStringByTag:)},
+			{0,100202, @selector(sendStaticStringByTag:)},
+			{0,100203, @selector(sendStaticStringByTag:)},
+			{0,0, nil},
+		{0,1005, nil},	// HTTP submenu
+			{0,100501, @selector(sendStaticStringByTag:)},
+			{0,100502, @selector(sendStaticStringByTag:)},
+			{0,100503, @selector(sendStaticStringByTag:)},
+			{0,100504, @selector(sendStaticStringByTag:)},
+			{0,100505, @selector(sendStaticStringByTag:)},
+			{0,100506, @selector(sendStaticStringByTag:)},
+			{0,0, nil},
+	{3,94, @selector(sendEscapeChar:)},
+	{3,95, @selector(sendCtrlZChar:)},
+	{3,96, @selector(sendSelection:)},
+	{3,97, @selector(sendStaticStringByTag:)},
+	{3,98, @selector(sendStaticStringByTag:)},
+	{3,99, @selector(sendStaticStringByTag:)},
+	{4,401, @selector(encodeBase64:)},
+	{4,402, @selector(decodeBase64:)}
 };
 
 /******************************* windowDidLoad ********************************/
@@ -79,14 +139,52 @@ SMenuItemDesc	menuItems[] =
 	{
 		const SMenuItemDesc*	miDesc = menuItems;
 		const SMenuItemDesc*	miDescEnd = &menuItems[sizeof(menuItems)/sizeof(SMenuItemDesc)];
+		NSMenu*	subMenu = nil;
+		NSMenu*	prevSubMenu = nil;	// Only supports 2 levels
+		NSMenu*	mainMenu = [NSApplication sharedApplication].mainMenu;
+		NSMenuItem *menuItem = nil;
 		for (; miDesc < miDescEnd; miDesc++)
 		{
-			NSMenuItem *menuItem = [[[NSApplication sharedApplication].mainMenu itemWithTag:miDesc->mainMenuTag].submenu itemWithTag:miDesc->subMenuTag];
-			if (menuItem)
+			if (miDesc->mainMenuTag)
 			{
-				// Assign this object as the target.
-				menuItem.target = self;
-				menuItem.action = miDesc->action;
+				subMenu = nil;
+				menuItem = [[mainMenu itemWithTag:miDesc->mainMenuTag].submenu itemWithTag:miDesc->subMenuTag];
+				if (menuItem)
+				{
+					if (miDesc->action)
+					{
+						// Assign this object as the target.
+						menuItem.target = self;
+						menuItem.action = miDesc->action;
+					} else
+					{
+						prevSubMenu = nil;
+						subMenu = menuItem.submenu;
+					}
+				}
+			} else if (subMenu)
+			{
+				if (miDesc->subMenuTag)
+				{
+					menuItem = [subMenu itemWithTag:miDesc->subMenuTag];
+					if (menuItem)
+					{
+						if (miDesc->action)
+						{
+							menuItem.target = self;
+							menuItem.action = miDesc->action;
+						} else	// Else this is a submenu
+						{
+							prevSubMenu = subMenu;
+							subMenu = menuItem.submenu;
+						}
+					}
+				} else	// Else both mainMenuTag and subMenuTag are zero
+				{
+					// This marks the end of the submenu, pop the previous
+					subMenu = prevSubMenu;
+					prevSubMenu = nil;
+				}
 			}
 		}
 	}
@@ -99,7 +197,10 @@ SMenuItemDesc	menuItems[] =
 		
 		// make sure we automatically resize the controller's view to the current window size
 		[[self.serialHexViewController view] setFrame:[serialView bounds]];
+		
+		_serialHexViewController.receivedDataTextView.automaticQuoteSubstitutionEnabled = NO;
 	}
+	_smsModeIsText = NO;
 }
 
 /****************************** validateMenuItem ******************************/
@@ -109,8 +210,15 @@ SMenuItemDesc	menuItems[] =
 	switch (menuItem.tag)
 	{
 		case 15:	// Export…
-		{
 			isValid = [_serialHexViewController binaryPathIsValid];
+			break;
+		case 96:
+		case 401:
+		case 402:
+		{
+			NSArray<NSValue *> *selection = self.serialHexViewController.receivedDataTextView.selectedRanges;
+			isValid = selection.count == 1 &&
+						selection.firstObject.rangeValue.length > 0;
 			break;
 		}
 	}
@@ -280,6 +388,200 @@ SMenuItemDesc	menuItems[] =
 	if ([self.serialHexViewController sendString:setTimeCommandStr])
 	{
 		[self.serialHexViewController postInfoString:@"Time set command sent"];
+	}
+}
+
+/****************************** setATTimeCommand ******************************/
+/*
+*	Sends the AT command to set the time using the format "yy/MM/dd,hh:mm:ss+/-zz"
+*/
+- (IBAction)setATTimeCommand:(id)sender
+{
+	unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay |
+						NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond |
+						NSCalendarUnitTimeZone;
+	NSDate *date = [NSDate date];
+	NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSDateComponents *comps = [gregorianCalendar components:unitFlags fromDate:date];
+	NSString* setTimeCommandStr = [NSString stringWithFormat:@"AT+CCLK=\"%02ld/%02ld/%02ld,%02ld:%02ld:%02ld%+03ld\"",
+		comps.year-2000, comps.month, comps.day, comps.hour,
+		comps.minute, comps.second, comps.timeZone.secondsFromGMT/3600];
+	[self.serialHexViewController sendString:setTimeCommandStr];
+}
+
+/*************************** sendStaticStringByTag ****************************/
+- (IBAction)sendStaticStringByTag:(id)sender
+{
+	NSMenuItem*	menuItem = sender;
+	NSString*	commandStr = nil;
+	switch (menuItem.tag)
+	{
+		case 3:	// Get Connection
+			commandStr = @"AT+CREG?";
+			break;
+		case 4:	// Get Network Operators
+			commandStr = @"AT+COPS=?";
+			break;
+		case 5:	// Connect to Verizon
+			commandStr = @"AT+COPS=4,2,\"311480\",7";
+			break;
+		case 6:	// Set Verbose Error Response
+			commandStr = @"AT+CMEE=2";
+			break;
+		case 7:	// Get RSSI
+			commandStr = @"AT+CSQ";
+			break;
+		case 8:	// Check Battery
+			commandStr = @"AT+CBC";
+			break;
+		case 9:	// Get Device IMEI
+			commandStr = @"AT+GSN";
+			break;
+		case 10:	// Get SIM ICCID
+			commandStr = @"AT+CCID";
+			break;
+		case 97:	// Send Wakeup Request
+			commandStr = @"w";
+			break;
+		case 98:	// Send Sleep Request
+			commandStr = @"s";
+			_smsModeIsText = NO;
+			break;
+		case 99:	// Send Reset Request
+			commandStr = @"r";
+			_smsModeIsText = NO;
+			break;
+		case 10001:	// Get Time
+			commandStr = @"AT+CCLK?";
+			break;
+		case 100001:	// Get DNS IPs
+			commandStr = @"AT+CDNSCFG?";
+			break;
+		case 100002:	// Set DNS IPs to Google
+			commandStr = @"AT+CDNSCFG=\"8.8.8.8\",\"8.8.4.4\"";
+			break;
+		case 100101:	// Get SMS Mode
+			commandStr = @"AT+CMGF?";
+			break;
+		case 100102:	// Set SMS Text Mode
+			commandStr = @"AT+CMGF=1";
+			_smsModeIsText = YES;
+			break;
+		case 100103:	// Set SMS PDU Mode
+			commandStr = @"AT+CMGF=0";
+			_smsModeIsText = NO;
+			break;
+		case 100104:	// Get SMSC
+			commandStr = @"AT+CSCA?";
+			break;
+		case 100105:	// Set Verizon SMSC
+			commandStr = @"AT+CSCA=\"+19036384682\",145";
+			//commandStr = @"AT+CSCA=\"+316540951000\",145";
+			break;
+		case 100106:	// Set AT&T SMSC
+			commandStr = @"AT+CSCA=\"+13123149810\",145";
+			break;
+		case 100107:	// Read All Messages
+			commandStr = _smsModeIsText ? @"AT+CMGL=\"ALL\"" : @"AT+CMGL=4";
+			break;
+		case 100108:	// Read New Messages (received)
+			commandStr = _smsModeIsText ? @"AT+CMGL=\"REC UNREAD\"" : @"AT+CMGL=0";
+			break;
+		case 100201:	// Deactivate Network
+			commandStr = @"AT+CNACT=0";
+			break;
+		case 100202:	// Activate Verizon internet network APN
+			commandStr = @"AT+CNACT=2,\"vzwinternet\"";
+			// @"AT+CNACT=2,\"vzwims\""	Verizon text network APN
+			break;
+		case 100501:	// Initialize HTTP
+			commandStr = @"AT+HTTPINIT";
+			break;
+		case 100502:	// Terminate HTTP
+			commandStr = @"AT+HTTPTERM";
+			break;
+		case 100503:	// HTTP GET
+			commandStr = @"AT+HTTPACTION=0";
+			break;
+		case 100504:	// HTTP POST
+			commandStr = @"AT+HTTPACTION=1";
+			break;
+		case 100505:	// HTTP read
+			commandStr = @"AT+HTTPREAD";
+			break;
+		case 100506:	// HTTP status
+			commandStr = @"AT+HTTPSTATUS?";
+			break;
+	}
+	[self.serialHexViewController sendString:commandStr];
+}
+
+/******************************* sendSelection ********************************/
+- (IBAction)sendSelection:(id)sender
+{
+	NSArray<NSValue *> *selection = self.serialHexViewController.receivedDataTextView.selectedRanges;
+	if (selection.count == 1 &&
+		selection.firstObject.rangeValue.length > 0)
+	{
+		[self.serialHexViewController sendString:[self.serialHexViewController.receivedDataTextView.textStorage.string substringWithRange:selection.firstObject.rangeValue]];
+	}
+}
+
+/******************************* sendEscapeChar *******************************/
+- (IBAction)sendEscapeChar:(id)sender
+{
+	[self.serialHexViewController sendData:[NSData dataWithBytes:"\x1B" length:1]];
+}
+
+/******************************* sendCtrlZChar ********************************/
+- (IBAction)sendCtrlZChar:(id)sender
+{
+	[self.serialHexViewController sendData:[NSData dataWithBytes:"\x1Z" length:1]];
+}
+
+/******************************** encodeBase64 ********************************/
+- (IBAction)encodeBase64:(id)sender
+{
+	NSArray<NSValue *> *selection = self.serialHexViewController.receivedDataTextView.selectedRanges;
+	if (selection.count == 1 &&
+		selection.firstObject.rangeValue.length > 0)
+	{
+		NSRange	selectedRange = selection.firstObject.rangeValue;
+		const char* utfText = self.serialHexViewController.receivedDataTextView.textStorage.string.UTF8String;
+		std::string	selectedText(&utfText[selectedRange.location], selectedRange.length);
+		std::string encodedStr;
+		Base64Str::Encode(selectedText, encodedStr);
+		[self.serialHexViewController.receivedDataTextView.textStorage replaceCharactersInRange:selectedRange withString:[NSString stringWithUTF8String:encodedStr.c_str()]];
+		selectedRange.length = encodedStr.size();
+		[self.serialHexViewController.receivedDataTextView setSelectedRange:selectedRange];
+	}
+
+}
+
+/******************************** decodeBase64 ********************************/
+- (IBAction)decodeBase64:(id)sender
+{
+	NSArray<NSValue *> *selection = self.serialHexViewController.receivedDataTextView.selectedRanges;
+	if (selection.count == 1 &&
+		selection.firstObject.rangeValue.length > 0)
+	{
+		NSRange	selectedRange = selection.firstObject.rangeValue;
+		const char* utfText = self.serialHexViewController.receivedDataTextView.textStorage.string.UTF8String;
+		std::string	selectedText(&utfText[selectedRange.location], selectedRange.length);
+		std::string decodedStr;
+		Base64Str::Decode(selectedText, decodedStr);
+		if ([self.serialHexViewController containsNonPrintableChars:decodedStr.c_str() length:decodedStr.size()])
+		{
+			[self.serialHexViewController appendNewLine];
+			[self.serialHexViewController appendColoredString:self.serialHexViewController.yellowColor string:@"----- Decoded Base64 string contains non-printable characters, dump follows -----"];
+			[self.serialHexViewController appendHexDump:decodedStr.c_str() length:decodedStr.size() addPreamble:YES];
+			[self.serialHexViewController post];
+		} else
+		{
+			[self.serialHexViewController.receivedDataTextView.textStorage replaceCharactersInRange:selectedRange withString:[NSString stringWithUTF8String:decodedStr.c_str()]];
+			selectedRange.length = decodedStr.size();
+			[self.serialHexViewController.receivedDataTextView setSelectedRange:selectedRange];
+		}
 	}
 }
 
